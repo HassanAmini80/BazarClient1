@@ -7,6 +7,7 @@ import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -44,6 +45,7 @@ public class GoodListActivity extends AppCompatActivity
     private GoodAdapter mAdapter;
     private FakeGoodService mGService;
     private RecyclerView mRyGoods;
+    SwipeRefreshLayout mySwipe;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,6 +100,19 @@ public class GoodListActivity extends AppCompatActivity
         mRyGoods.setAdapter(mAdapter);
         this.registerForContextMenu(mRyGoods);
         getGoodsFromServer();
+
+
+        mySwipe = (SwipeRefreshLayout) findViewById(R.id.mySwipe);
+
+        mySwipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+
+                getGoodsFromServer();
+
+                mySwipe.setRefreshing(false);
+            }
+        });
     }
 
     @Override
