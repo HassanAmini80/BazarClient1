@@ -61,6 +61,7 @@ public class GoodInfoActivity extends AppCompatActivity {
 
 
                     } else {
+                        Log.d(TAG, "else___else___else___else___else" + mGoodIdInInfoMode);
 
                     }
                 }
