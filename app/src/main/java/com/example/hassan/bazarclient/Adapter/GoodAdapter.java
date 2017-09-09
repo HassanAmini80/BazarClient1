@@ -11,6 +11,7 @@ import android.widget.ImageView;
 
 import com.example.hassan.bazarclient.R;
 import com.example.hassan.bazarclient.models.GoodModel;
+import com.example.hassan.bazarclient.utility.ClientConfigs;
 import com.squareup.picasso.Picasso;
 
 import java.util.Collections;
@@ -18,9 +19,6 @@ import java.util.List;
 
 import static android.content.ContentValues.TAG;
 
-/**
- * Created by Hassan on 7/3/2017.
- */
 
 public class GoodAdapter extends RecyclerView.Adapter<GoodAdapter.GoodViewHolder> {
 
@@ -60,9 +58,8 @@ public class GoodAdapter extends RecyclerView.Adapter<GoodAdapter.GoodViewHolder
     }
 
     public void GoodInfo(int position, GoodModel good) {
-        Log.d(TAG, "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+String.valueOf(mData.get(position)));
         if (mGoodEventHandler != null) {
-            mGoodEventHandler.onGoodInfo(String.valueOf(mData.get(position)), position);
+            mGoodEventHandler.onGoodInfo(String.valueOf(mData.get(position).goodId), position);
         }
     }
 
@@ -87,7 +84,7 @@ public class GoodAdapter extends RecyclerView.Adapter<GoodAdapter.GoodViewHolder
             this.mTxGoodName.setText(currentModel.goodName);
             this.mTxGoodPrice.setText(currentModel.goodPrice);
             this.description.setText(currentModel.goodDes);
-            Picasso.with(mContext).load(currentModel.imageUrl).into(this.imGood);
+            Picasso.with(mContext).load(ClientConfigs.REST_API_BASE_URL + "../images/" + currentModel.imageUrl).into(this.imGood);
             this.position = position;
             this.currentGood = currentModel;
         }

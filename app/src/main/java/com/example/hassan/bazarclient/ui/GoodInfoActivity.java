@@ -23,6 +23,7 @@ public class GoodInfoActivity extends AppCompatActivity {
 
     private int mActionToDo = GoodConstants.GOOD_INFO;
     private String mGoodIdInInfoMode;
+    GoodModel currentGood = new GoodModel();
     private TextView mTxGoodName;
     private TextView mTxGoodPrice;
     private TextView description;
@@ -38,8 +39,10 @@ public class GoodInfoActivity extends AppCompatActivity {
         //get argument and check is GoodInfo
         Bundle args = getIntent().getExtras();
         if (args != null) {
+            Log.d(TAG, "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Get Intent");
             mActionToDo = args.getInt(GoodConstants.ACTION_TO_DO_KEY, GoodConstants.GOOD_INFO);
             if (mActionToDo == GoodConstants.GOOD_INFO) {
+                Log.d(TAG, "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Set mGoodIdInfoMode");
                 mGoodIdInInfoMode = args.getString(GoodConstants.GOOD_ID_KEY, "");
             }
 
@@ -57,9 +60,9 @@ public class GoodInfoActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<GoodModel> call, Response<GoodModel> response) {
                     if (response.isSuccessful()) {
-                        Log.d(TAG, "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk" + mGoodIdInInfoMode);
-
-
+                    currentGood = response.body();
+                        mTxGoodName = (TextView) findViewById(R.id.goodNameInfo);
+                        mTxGoodName.setText(currentGood.goodName.toString());
                     } else {
                         Log.d(TAG, "else___else___else___else___else" + mGoodIdInInfoMode);
 
@@ -79,15 +82,14 @@ public class GoodInfoActivity extends AppCompatActivity {
                 (CollapsingToolbarLayout) findViewById(R.id.collapsingToolbar);
         collapsingToolbar.setTitle("Collapsing Toolbar");
 
-/*
 
-		mTxGoodName = (TextView) findViewById(R.id.goodNameInfo);
-		this.mTxGoodName.setText(R.id.goodName);
+
+
 		//this.mTxGoodPrice.setText(R.id.goodPrice);
 		//this.description.setText(R.id.goodDes);
 
 
-
+/*
 		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 		toolbar.setTitle("Module 5");
 		toolbar.inflateMenu(R.menu.menu_main);

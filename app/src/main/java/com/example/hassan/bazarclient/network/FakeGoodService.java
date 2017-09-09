@@ -18,12 +18,8 @@ import retrofit2.http.POST;
 import retrofit2.http.PartMap;
 import retrofit2.http.Path;
 
-/**
- * Created by Hassan on 6/29/2017.
- */
-
 public interface FakeGoodService {
-    @POST("Goods/{getById}")
+    @GET("Goods/{getById}")
     Call<GoodModel> getGoodById (@Path("getById") String id);
 
     @GET("Goods/getAll")

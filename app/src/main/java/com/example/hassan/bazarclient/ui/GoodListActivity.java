@@ -91,7 +91,7 @@ public class GoodListActivity extends AppCompatActivity
             public void onGoodInfo(String goodId, int position) {
                 Intent goodInfoIntent = new Intent(getBaseContext(), GoodInfoActivity.class);
                 goodInfoIntent.putExtra(GoodConstants.ACTION_TO_DO_KEY,GoodConstants.GOOD_INFO);
-                goodInfoIntent.putExtra(GoodConstants.GOOD_ID_KEY,goodId);
+                goodInfoIntent.putExtra(GoodConstants.GOOD_ID_KEY,goodId.toString());
                 startActivityForResult(goodInfoIntent,GoodConstants.GOOD_INFO_REQUEST_CODE);
             }
         });
