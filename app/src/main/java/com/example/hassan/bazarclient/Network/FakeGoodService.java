@@ -1,9 +1,9 @@
-package com.example.hassan.bazarclient.network;
+package com.example.hassan.bazarclient.Network;
 
 import com.example.hassan.bazarclient.models.AuthenticationResponseModel;
+import com.example.hassan.bazarclient.models.CustomerModel;
 import com.example.hassan.bazarclient.models.GoodModel;
 import com.example.hassan.bazarclient.models.SignInRequestMdel;
-import com.example.hassan.bazarclient.models.UserModel;
 
 import java.util.List;
 import java.util.Map;
@@ -30,6 +30,6 @@ public interface FakeGoodService {
 
     @Multipart
     @POST("user/profile/image")
-    Call<UserModel> uploadUserProfileImage(@Header("Authorization") String authHeader, @PartMap Map<String, RequestBody> map);
+    Call<CustomerModel> uploadUserProfileImage(@Header("Authorization") String authHeader, @PartMap Map<String, RequestBody> map);
 
 }

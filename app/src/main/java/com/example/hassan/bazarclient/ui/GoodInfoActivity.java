@@ -11,13 +11,14 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.hassan.bazarclient.R;
 import com.example.hassan.bazarclient.models.GoodModel;
-import com.example.hassan.bazarclient.network.FakeGoodProvider;
-import com.example.hassan.bazarclient.network.FakeGoodService;
+import com.example.hassan.bazarclient.Network.FakeGoodProvider;
+import com.example.hassan.bazarclient.Network.FakeGoodService;
 import com.example.hassan.bazarclient.utility.ClientConfigs;
 import com.squareup.picasso.Picasso;
 
@@ -53,13 +54,13 @@ public class GoodInfoActivity extends AppCompatActivity {
                 //startActivity(new Intent(GoodInfoActivity.this , OrderActivity.class));
                 AlertDialog.Builder mBuilder = new AlertDialog.Builder(GoodInfoActivity.this);
                 View mView = getLayoutInflater().inflate(R.layout.order, null);
-                /*Button send = (Button) findViewById(R.id.send_popup);
+                Button send = (Button) findViewById(R.id.send_popup);
                 send.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v)
                     {
-                        Toast.makeText(GoodInfoActivity.this, "sent" , Toast.LENGTH_LONG).show();
+                        return;
                     }
-                });*/
+                });
                 mBuilder.setView(mView);
                 AlertDialog dialog = mBuilder.create();
                 dialog.show();

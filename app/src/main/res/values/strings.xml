@@ -5,18 +5,36 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
 
-    <string name="pref_access_token" translatable="false">pref_access_token</string>
-    <string name="pref_expire_in_sec" translatable="false">pref_expire_in_sec</string>
-    <string name="pref_expire_at" translatable="false">pref_expire_at</string>
-    <string name="pref_refresh_token" translatable="false">pref_refresh_token</string>
-    <string name="pref_app_id" translatable="false">pref_app_id</string>
-    <string name="pref_user_id" translatable="false">pref_user_id</string>
-    <string name="pref_user_email" translatable="false">pref_user_email</string>
-    <string name="pref_user_name" translatable="false">pref_user_name</string>
-    <string name="pref_user_image_url">pref_user_image_url</string>
+    <string name="title_activity_order_list">OrderListActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="title_activity_login">Sign in</string>
-    <string name="title_activity_sign_up">SignUpActivity</string>
 
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+
+    //user Auth info
+    <string name="pref_access_token" translatable="false">pref_access_token</string>
+    <string name="pref_user_id" translatable="false">pref_user_id</string>
+    <string name="pref_user_name" translatable="false">pref_user_name</string>
+    <string name="pref_user_lastname" translatable="false">pref_user_lastname</string>
+    <string name="pref_user_email" translatable="false">pref_user_email</string>
+    <string name="pref_user_password" translatable="false">pref_user_password</string>
+    <string name="pref_user_usertype" translatable="false">pref_user_usertype</string>
+    <string name="pref_user_familyid" translatable="false">pref_user_family_id</string>
+    <string name="pref_user_image_url">pref_user_image_url</string>
+    <string name="pref_refresh_token" />
 
     <string name="action_settings">Settings</string>
     <string name="about_dev">Mirzakhani made several contributions to the theory of moduli spaces of Riemann surfaces. In her early work, Mirzakhani discovered a formula expressing the volume of a moduli space with a given genus as a polynomial in the number of boundary components.

@@ -1,7 +1,7 @@
 package com.example.hassan.bazarclient.utility;
 
 import com.example.hassan.bazarclient.models.ErrorModel;
-import com.example.hassan.bazarclient.network.FakeGoodProvider;
+import com.example.hassan.bazarclient.Network.FakeGoodProvider;
 
 import java.io.IOException;
 import java.lang.annotation.Annotation;

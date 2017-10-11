@@ -1,4 +1,4 @@
-package com.example.hassan.bazarclient.network;
+package com.example.hassan.bazarclient.Network;
 
 import com.example.hassan.bazarclient.utility.ClientConfigs;
 

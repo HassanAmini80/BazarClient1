@@ -21,11 +21,14 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.hassan.bazarclient.Adapter.GoodAdapter;
+import com.example.hassan.bazarclient.LoginActivity;
+import com.example.hassan.bazarclient.Network.UserModelProvider;
+import com.example.hassan.bazarclient.Network.UserModelService;
 import com.example.hassan.bazarclient.R;
 import com.example.hassan.bazarclient.models.ErrorModel;
 import com.example.hassan.bazarclient.models.GoodModel;
-import com.example.hassan.bazarclient.network.FakeGoodProvider;
-import com.example.hassan.bazarclient.network.FakeGoodService;
+import com.example.hassan.bazarclient.Network.FakeGoodProvider;
+import com.example.hassan.bazarclient.Network.FakeGoodService;
 import com.example.hassan.bazarclient.utility.AppPreferenceTools;
 import com.example.hassan.bazarclient.utility.ErrorUtils;
 
@@ -51,7 +54,9 @@ public class GoodListActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_good_list);
+        mAppPreferenceTools = new AppPreferenceTools(this);
 
+        if (mAppPreferenceTools.isAuthorized()) {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -113,6 +118,11 @@ public class GoodListActivity extends AppCompatActivity
                 mySwipe.setRefreshing(false);
             }
         });
+
+        } else {
+            startActivity(new Intent(this, LoginActivity.class));
+            finish();
+        }
     }
 
     @Override
@@ -200,6 +210,29 @@ public class GoodListActivity extends AppCompatActivity
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
+
+        }else if (id == R.id.nav_log_out) {
+//send request to server to terminate this application
+            UserModelProvider userProvider = new UserModelProvider();
+            //Call api route
+            UserModelService userService = userProvider.getUService();
+            Call<Boolean> call = userService.terminateApp();
+            call.enqueue(new Callback<Boolean>() {
+                @Override
+                public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                    //remove all authentication information such as accessToken and others
+                    mAppPreferenceTools.removeAllPrefs();
+                    //navigate to sign in activity
+                    startActivity(new Intent(getBaseContext(), LoginActivity.class));
+                    //finish this
+                    finish();
+                }
+
+                @Override
+                public void onFailure(Call<Boolean> call, Throwable t) {
+
+                }
+            });
 
         }
 
