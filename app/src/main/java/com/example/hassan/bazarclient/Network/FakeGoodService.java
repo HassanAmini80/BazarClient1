@@ -3,6 +3,7 @@ package com.example.hassan.bazarclient.Network;
 import com.example.hassan.bazarclient.models.AuthenticationResponseModel;
 import com.example.hassan.bazarclient.models.CustomerModel;
 import com.example.hassan.bazarclient.models.GoodModel;
+import com.example.hassan.bazarclient.models.OrderModel;
 import com.example.hassan.bazarclient.models.SignInRequestMdel;
 
 import java.util.List;
@@ -24,6 +25,9 @@ public interface FakeGoodService {
 
     @GET("Goods/getAll")
     Call<List<GoodModel>> GetGoods();
+
+    @POST("order/addOrder")
+    Call<String> order(@Body OrderModel orderModel);
 
     @POST
     Call<AuthenticationResponseModel> signIn(@Body SignInRequestMdel signInRequestMdel);

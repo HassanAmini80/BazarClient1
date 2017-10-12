@@ -5,6 +5,8 @@
     android:layout_height="120dp"
     android:layout_alignParentTop="false"
     android:layout_marginBottom="5dp"
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="5dp"
     android:background="@drawable/shape"
     android:clickable="true"
     android:layoutDirection="ltr"
@@ -12,33 +14,37 @@
 
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_margin="0dp"
         android:layout_weight="1">
 
         <LinearLayout
-            android:layout_width="120dp"
-            android:layout_height="120dp">
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_weight="0.35">
 
             <ImageView
                 android:id="@+id/im_good"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:src="@drawable/ic_image_black_120dp" />
 
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="0.65"
+            android:paddingRight="10dp"
             android:layout_height="match_parent"
             android:layoutDirection="rtl"
             android:orientation="vertical"
-            android:paddingTop="5dp">
+            android:paddingTop="10dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
+                android:orientation="horizontal"
                 android:layout_weight="0.33">
 
                 <android.support.v7.widget.AppCompatTextView
@@ -49,7 +55,8 @@
                     android:inputType="textPersonName"
                     android:text="نام کالا:"
                     android:textColor="@color/colorBlack"
-                    android:textSize="20sp" />
+                    android:textSize="18dp"
+                    android:textStyle="bold"/>
 
             </LinearLayout>
 
@@ -69,7 +76,8 @@
                     android:inputType="textPersonName"
                     android:text="قیمت:"
                     android:textColor="@color/colorBlack"
-                    android:textSize="20dp" />
+                    android:textSize="18dp"
+                    android:textStyle="bold"/>
 
 
             </LinearLayout>
@@ -89,7 +97,7 @@
                     android:inputType="textPersonName"
                     android:text="توضیحات:"
                     android:textColor="@color/colorBlack"
-                    android:textSize="15sp" />
+                    android:textSize="15dp" />
 
             </LinearLayout>
 

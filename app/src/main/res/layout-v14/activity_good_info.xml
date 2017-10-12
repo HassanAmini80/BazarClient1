@@ -32,12 +32,5 @@
         android:id="@+id/send_fab"
 		app:layout_anchorGravity="bottom|right"/>
 
-    <ProgressBar
-        android:id="@+id/progressBar"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical|center_horizontal"/>
-
 
 </android.support.design.widget.CoordinatorLayout>

@@ -3,7 +3,7 @@ package com.example.hassan.bazarclient.models;
 
 public class OrderModel {
     private int order_id;
-    private String user_id;
+    private String user_id="1";
     private String good_id;
     private int number;
     private String order_date;
