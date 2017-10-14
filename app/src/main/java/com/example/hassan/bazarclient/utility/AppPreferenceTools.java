@@ -30,7 +30,7 @@ public class AppPreferenceTools {
 
         mPreference.edit()
                 .putString(this.mContext.getString(R.string.pref_access_token), authUserModel.token.access_token)
-                .putString(this.mContext.getString(R.string.pref_user_id), String.valueOf(authUserModel.user_profile.getCustomerId()))
+                .putString(this.mContext.getString(R.string.pref_user_id), String.valueOf(authUserModel.user_profile.getDriverId()))
                 .putString(this.mContext.getString(R.string.pref_user_name), authUserModel.user_profile.getFirstName())
                 .putString(this.mContext.getString(R.string.pref_user_lastname), authUserModel.user_profile.getLastName())
                 .putString(this.mContext.getString(R.string.pref_user_email), authUserModel.user_profile.getUsername())
@@ -48,7 +48,7 @@ public class AppPreferenceTools {
      */
     public void saveUserModel(CustomerModel customerModel) {
         mPreference.edit()
-                .putString(this.mContext.getString(R.string.pref_user_id), String.valueOf(customerModel.getCustomerId()))
+                .putString(this.mContext.getString(R.string.pref_user_id), String.valueOf(customerModel.getDriverId()))
                 .putString(this.mContext.getString(R.string.pref_user_email), customerModel.getUsername())
                 .putString(this.mContext.getString(R.string.pref_user_name), customerModel.getFirstName())
                 .putString(this.mContext.getString(R.string.pref_user_image_url), customerModel.imageUrl)
@@ -97,7 +97,7 @@ public class AppPreferenceTools {
     }
 
     public String getUserId() {
-        return mPreference.getString(this.mContext.getString(R.string.pref_user_id), "");
+        return mPreference.getString(this.mContext.getString(R.string.pref_user_id),"");
     }
 
     public String getUserType() {

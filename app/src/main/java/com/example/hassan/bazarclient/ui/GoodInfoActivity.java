@@ -23,6 +23,7 @@ import com.example.hassan.bazarclient.R;
 import com.example.hassan.bazarclient.models.ErrorModel;
 import com.example.hassan.bazarclient.models.GoodModel;
 import com.example.hassan.bazarclient.models.OrderModel;
+import com.example.hassan.bazarclient.utility.AppPreferenceTools;
 import com.example.hassan.bazarclient.utility.ClientConfigs;
 import com.example.hassan.bazarclient.utility.ErrorUtils;
 import com.squareup.picasso.Picasso;
@@ -33,24 +34,26 @@ import retrofit2.Response;
 
 public class GoodInfoActivity extends AppCompatActivity {
 
+    public FakeGoodService gMService;
+    GoodModel currentGood;
+    OrderModel currentOrder = new OrderModel();
     private int mActionToDo = GoodConstants.GOOD_INFO;
     private String mGoodIdInInfoMode;
-    GoodModel currentGood = new GoodModel();
-    OrderModel currentOrder = new OrderModel();
     private TextView mTxGoodName;
     private TextView mTxGoodPrice;
     private TextView description;
     private ImageView imGoodInfo;
     private Context mContext;
-    public FakeGoodService gMService;
     private ProgressDialog mProgress;
+    private AppPreferenceTools mAppPreferenceTools;
+
 
     @RequiresApi(api = Build.VERSION_CODES.HONEYCOMB_MR1)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_good_info);
-
+        mAppPreferenceTools = new AppPreferenceTools(this);
         new GoodInfo().execute();
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.send_fab);
@@ -58,7 +61,7 @@ public class GoodInfoActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                order();
+                send();
             }
         });
     }
@@ -77,6 +80,46 @@ public class GoodInfoActivity extends AppCompatActivity {
         Picasso.with(mContext).load(ClientConfigs.REST_API_BASE_URL + "../images/" + currentModel.imageUrl).into(this.imGoodInfo);
         //this.position = position;
         this.currentGood = currentModel;
+    }
+
+    public void setOrder() {
+        Call<String> call = gMService.order(currentOrder);
+        call.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+
+                if (response.isSuccessful()) {
+                    Toast.makeText(getBaseContext(),"سفارش ذخیره شد",Toast.LENGTH_LONG).show();
+                } else {
+                    ErrorModel errorModel = ErrorUtils.parseError(response);
+                    Toast.makeText(getBaseContext(), "Error type is " + errorModel.type + " , description " + errorModel.description, Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+
+                Toast.makeText(getBaseContext(), "Fail it >>" + t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void send() {
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(GoodInfoActivity.this);
+        final View mView = getLayoutInflater().inflate(R.layout.order, null);
+        Button send = (Button) mView.findViewById(R.id.send_popup);
+        send.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                EditText orderNumber = (EditText) mView.findViewById(R.id.orderNumber);
+                currentOrder.setNumber(Integer.parseInt(orderNumber.getText().toString()));
+                currentOrder.setUser_id(mAppPreferenceTools.getUserId());
+                currentOrder.setGood_id(currentGood.goodId);
+setOrder();
+            }
+        });
+        mBuilder.setView(mView);
+        AlertDialog dialog = mBuilder.create();
+        dialog.show();
     }
 
     class GoodInfo extends AsyncTask<String, String, String> {
@@ -114,79 +157,39 @@ public class GoodInfoActivity extends AppCompatActivity {
             super.onPostExecute(s);
             mProgress.cancel();
             runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
+                              @Override
+                              public void run() {
 
-                    if (mActionToDo == GoodConstants.GOOD_INFO && !mGoodIdInInfoMode.equals("")) {
+                                  if (mActionToDo == GoodConstants.GOOD_INFO && !mGoodIdInInfoMode.equals("")) {
 
-                        Call<GoodModel> call = gMService.getGoodById(mGoodIdInInfoMode);
-                        call.enqueue(new Callback<GoodModel>() {
-                            @Override
-                            public void onResponse(Call<GoodModel> call, Response<GoodModel> response) {
-                                 if (response.isSuccessful()) {
-                                     currentGood = response.body();
-                                     setData(currentGood, mContext);
+                                      Call<GoodModel> call = gMService.getGoodById(mGoodIdInInfoMode);
+                                      call.enqueue(new Callback<GoodModel>() {
+                                          @Override
+                                          public void onResponse(Call<GoodModel> call, Response<GoodModel> response) {
+                                              if (response.isSuccessful()) {
+                                                  currentGood = response.body();
+                                                  setData(currentGood, mContext);
 
-                                 } else {
+                                              } else {
 
-                                 }
-                            }
+                                              }
+                                          }
 
-                            @Override
-                            public void onFailure(Call<GoodModel> call, Throwable t) {
-                             }
-                        });
-                     }
-                }
-            }
+                                          @Override
+                                          public void onFailure(Call<GoodModel> call, Throwable t) {
+                                          }
+                                      });
+                                  }
+                              }
+                          }
             );
+            /*
             CollapsingToolbarLayout collapsingToolbar =
                     (CollapsingToolbarLayout) findViewById(R.id.collapsingToolbar);
             collapsingToolbar.setTitle(currentGood.goodName);
-
+*/
         }
 
-    }
-
-    public void order(){
-        FakeGoodProvider GoodProvider = new FakeGoodProvider();
-        gMService = GoodProvider.getGService();
-        Call<String> call = gMService.order(currentOrder);
-        call.enqueue(new Callback<String>() {
-            @Override
-            public void onResponse(Call<String> call, Response<String> response) {
-
-                if (response.isSuccessful()){
-                    send();
-                }else {
-                    ErrorModel errorModel = ErrorUtils.parseError(response);
-                    Toast.makeText(getBaseContext(), "Error type is " + errorModel.type + " , description " + errorModel.description, Toast.LENGTH_LONG).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<String> call, Throwable t) {
-
-                Toast.makeText(getBaseContext(), "Fail it >>" + t.getMessage(), Toast.LENGTH_LONG).show();
-            }
-        });
-    }
-
-    private void send(){
-        AlertDialog.Builder mBuilder = new AlertDialog.Builder(GoodInfoActivity.this);
-        final View mView = getLayoutInflater().inflate(R.layout.order, null);
-        Button send = (Button) mView.findViewById(R.id.send_popup);
-        send.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v)
-            {
-                EditText orderNumber = (EditText) mView.findViewById(R.id.orderNumber);
-                currentOrder.setNumber(Integer.parseInt(String.valueOf(orderNumber.getText())));
-                currentOrder.setGood_id(currentGood.goodId);
-            }
-        });
-        mBuilder.setView(mView);
-        AlertDialog dialog = mBuilder.create();
-        dialog.show();
     }
 
 }

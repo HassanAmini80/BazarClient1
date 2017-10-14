@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName;
  */
 
 public class CustomerModel {
-    private int customerId;
+    private int driverId;
     private String firstName;
     private String lastName;
     private String username;
@@ -15,12 +15,12 @@ public class CustomerModel {
     @SerializedName("image")
     public String imageUrl;
 
-    public int getCustomerId() {
-        return customerId;
+    public int getDriverId() {
+        return driverId;
     }
 
-    public void setCustomerId(int customerId) {
-        this.customerId = customerId;
+    public void setDriverId(int driverId) {
+        this.driverId = driverId;
     }
 
     public String getFirstName() {
